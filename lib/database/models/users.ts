@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const Users = new mongoose.Schema({
-    id: { type: Number, unique: true, required: true },
+    userid: { type: Number, unique: true },
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
@@ -12,7 +12,7 @@ const Users = new mongoose.Schema({
 Users.pre('save', async function (next) {
     if (this.isNew) {
         const count = await mongoose.model('Users').countDocuments();
-        this.id = count + 1;
+        this.userid = count + 1;
     }
     next();
 });
