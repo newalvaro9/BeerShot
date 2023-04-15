@@ -25,7 +25,7 @@ export default function Login() {
             if (!error || error.length === 0) {
                 router.push('/');
             }
-            else if (error === "CredentialsSignin") {
+            else if (error === "CredencialesIncorrectas") {
                 setShowError(true)
                 setError("Usuario o contraseña incorrecto.");
             }
