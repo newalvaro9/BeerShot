@@ -60,7 +60,9 @@ export const authOptions = {
                                 username: username,
                                 password: await hasher(password),
                             });
-                            return user;
+                            console.log("Nextauth register")
+                            console.log({ ...user.toObject(), userid: user.userid })
+                            return { ...user.toObject(), userid: user.userid };
                         } else {
                             throw new Error("UsernamePicked");
                         }
@@ -72,8 +74,32 @@ export const authOptions = {
                     return null;
                 }
             },
+
         }),
     ],
+    callbacks: {
+        session: async ({ session, token }: { session: any, token: any }) => {
+            session.id = token.id;
+            session.jwt = token.jwt;
+
+            session.user.userid = token.userid;
+            session.user.email = token.email
+            session.user.username = token.username
+
+            return Promise.resolve(session);
+        },
+        jwt: async ({ token, user }: { token: any, user: any }) => {
+            if (user) {
+                token.id = user.id;
+                token.jwt = user.jwt;
+
+                token.userid = user.userid as number;
+                token.email = user.email
+                token.username = user.username
+            }
+            return Promise.resolve(token);
+        },
+    },
     pages: {
         signIn: '/auth/login',
         error: '/auth/error',

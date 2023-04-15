@@ -19,7 +19,7 @@ export default function Register() {
 
     const handleSignIn = () => {
 
-        if (passwordRef === confirm_passwordRef) {
+        if (passwordRef!.current!.value === confirm_passwordRef!.current!.value) {
             signIn('credentials', {
                 redirect: false,
                 email: emailRef!.current!.value,
@@ -39,6 +39,7 @@ export default function Register() {
                     setError("El nombre de usuario ya está en uso");
                 }
                 else {
+                    console.log(error)
                     setShowError(true);
                     setError("Hubo un error al registrarte")
                 }
