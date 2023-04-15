@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt'
 
-const hasher = async (password: string) => {
+const hasher: (password: string) => Promise<string> = async (password) => {
     const result = await hash(password, 12)
     return result
 }
