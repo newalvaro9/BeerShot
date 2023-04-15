@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/router';
 import Layout from '@/components/layout';
-import styles from "@/styles/Login.module.css"
+import styles from '@/styles/Login.module.css';
 import buttons from "@/styles/Buttons.module.css"
 
 export default function Login() {
