@@ -49,7 +49,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             }
         };
     }
-    const imageBase64 = Buffer.from(image.image).toString()
+    const binaryData = image.image.buffer; // Get the buffer
+    const imageBase64 = Buffer.from(binaryData, 'base64').toString('utf-8');
 
     return {
         props: {
