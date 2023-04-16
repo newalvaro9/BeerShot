@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             image: {
                 title: image.title,
                 image: imageBase64,
-                size: image.size || null,
+                size: image.size,
                 date: image.date,
                 publisher: image.publisher,
             },
