@@ -1,4 +1,5 @@
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { GetServerSidePropsContext } from "next";
@@ -15,6 +16,8 @@ export default function Upload() {
 
     const [progress, setProgress] = useState<number>(0);
     const [showBar, setShowBar] = useState<boolean>(false);
+
+    const router = useRouter();
 
     const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
@@ -52,13 +55,20 @@ export default function Upload() {
                 size: imageSize,
             }
 
-            const response = await fetch('/api/upload', {
+            fetch('/api/upload', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            });
+            })
+                .then(response => response.json())
+                .then(data => {
+                    router.push('/images/', data.newUrl)
+                })
+                .catch(error => {
+                    alert("There was an error sending your image")
+                });
         }
     };
 
