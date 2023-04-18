@@ -22,7 +22,7 @@ export default function Upload() {
     const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
 
-        if (!["image/svg+xml", "image/jpeg", "image/jpg", "image/png"].includes(file.type)) return alert("You must upload a supported file type.")
+        if (!["image/jpeg", "image/jpg", "image/png"].includes(file.type)) return alert("You must upload a supported file type.")
 
         if (file) {
             setProgress(0);
