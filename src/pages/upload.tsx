@@ -64,7 +64,7 @@ export default function Upload() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    router.push('/images/', data.newUrl)
+                    router.push(`/images/${data.newUrl}`)
                 })
                 .catch(error => {
                     alert("There was an error sending your image")
