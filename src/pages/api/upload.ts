@@ -18,11 +18,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             size: number;
         }
 
-        const img = image;
-        const buffer = Buffer.from(img.substring(img.indexOf(',') + 1));
-        console.log("Byte length: " + buffer.length);
-        console.log("MB: " + buffer.length / 1e+6);
-
         await connect();
 
         const generatedLink = await generateLink(images);
@@ -35,8 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             date: Date.now(),
             publisher: session?.user?.userid,
         });
-
-        console.log(generatedLink)
 
         res.status(200).json({ newUrl: generatedLink })
     }
