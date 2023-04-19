@@ -45,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         return {
             redirect: {
                 destination: '/404',
+                statusCode: 404,
                 permanent: false,
             }
         };
