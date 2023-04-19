@@ -1,0 +1,69 @@
+.div-user {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.username-bio {
+    display: felx;
+    flex-direction: column;
+    color: #e3eef2;
+}
+
+.username {
+    color: #e3eef2;
+    font-size: 30px;
+    margin-left: 35px;
+    margin-top: 7px;
+}
+
+.username-bio p {
+    color: #e3eef2;
+    white-space: pre-wrap;
+    font-size: 20px;
+    margin-left: 35px;
+    margin-top: 7px;
+}
+
+.avatar-user {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+/* Below Separator */
+
+.cs-card {
+    width: 200px;
+}
+
+.cs-title {
+    width: 100%;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e3eef2;
+}
+
+.cs-card-image {
+    height: 200px;
+    width: 200px;
+    border: 3px solid #2a3843;
+    border-radius: 10px;
+}
+
+.image {
+    border-radius: 10px;
+}
+
+.container-of-cards {
+    display: grid;
+    place-items: start;
+    place-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    margin-top: 20px;
+}
