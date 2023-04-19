@@ -11,7 +11,7 @@ import formatDate from '../../../utils/formatDate';
 type ImageProps = {
     title: string;
     image: string;
-    size?: number;
+    size: number;
     date: number;
     publisher: number;
 }
@@ -30,7 +30,7 @@ export default function ImageRoute({ image }: { image: ImageProps }) {
                 </div>
                 <div className={styles['image-info']}>
                     <span>{formatDate(image.date)}</span>
-                    <span>{formatBytes(image.size || 200000)}</span>
+                    <span>{formatBytes(image.size)}</span>
                 </div>
             </div>
         </Layout >
