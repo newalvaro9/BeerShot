@@ -171,9 +171,10 @@ export default function Profile({ userinfo, imageCollection, watchingMyProfile }
                 className={styles['overlay-bio']}
                 id="overlay-bio"
             >
+                <Image src="/drag.svg" alt="drag" className={styles["drag-overlay-btn"]} id="header-drag-bio" draggable="false" width={15} height={15} />
                 <a className={styles["close-overlay-btn"]} onClick={() => closeOverlay('bio')}>&times;</a>
 
-                <h4 id="header-drag-bio">Biography</h4>
+                <h4>Biography</h4>
                 <textarea
                     placeholder="I am 23 years old..."
                     defaultValue={userinfo.biography || undefined}
@@ -190,9 +191,10 @@ export default function Profile({ userinfo, imageCollection, watchingMyProfile }
                 className={styles['overlay-avatar']}
                 id="overlay-avatar"
             >
+                <Image src="/drag.svg" alt="drag" className={styles["drag-overlay-btn"]} id="header-drag-avatar" draggable="false" width={15} height={15} />
                 <a className={styles["close-overlay-btn"]} onClick={() => closeOverlay('avatar')}>&times;</a>
 
-                <h4 id="header-drag-avatar">Avatar</h4>
+                <h4>Avatar</h4>
                 <input id="avatar" name="avatar" type="file" accept=".jpg, .jpeg, .png" onChange={handleFileSelect} />
                 <button type="button" className={buttons["button-2"]} style={{ width: '100%' }} onClick={handleChangeAvatar}>Change avatar</button>
             </div>
