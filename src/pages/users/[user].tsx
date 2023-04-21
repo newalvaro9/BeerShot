@@ -105,12 +105,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const user = await users.findOne({ userid: context?.params?.user });
     if (!user) {
         return {
-            props: {
-                redirect: {
-                    destination: "/404",
-                    permanent: false,
-                },
-            }
+            redirect: {
+                destination: "/404",
+                permanent: false,
+            },
         }
     }
 
