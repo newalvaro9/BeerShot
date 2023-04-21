@@ -233,7 +233,7 @@ export default function Profile({ userinfo, imageCollection, watchingMyProfile }
                 </div>
             )}
 
-            <hr className={styles["separator"]} style={{ marginTop: '5px', marginBottom: '7px' }} />
+            <hr className={styles["separator"]} />
 
             <div className={styles["container-of-cards"]}>
                 {
