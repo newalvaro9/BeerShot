@@ -70,6 +70,7 @@ export default function Login() {
                         </div>
 
                         <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Login</button>
+                        <a style={{ alignSelf: 'center', marginTop: 12 }} href="/reset/password">¿Ha olvidado su contraseña?</a>
                     </div>
                 </div>
             </form>
