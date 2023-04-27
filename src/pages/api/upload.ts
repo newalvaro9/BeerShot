@@ -10,7 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'POST') return res.redirect('/upload');
 
     if (req.body) {
-        const session = await getServerSession(req, res, authOptions)
+        const session = await getServerSession(req, res, authOptions);
+        if(!session) return res.status(403).end();
 
         const { image, title, size } = req.body as {
             image: string;
