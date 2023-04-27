@@ -51,7 +51,7 @@ export default function Register() {
     }
 
     return (
-        <Layout title={"Register - Climbing Up"}>
+        <Layout title={"Register - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["up-login-card"]}>
                     <div className={styles["login-card"]}>

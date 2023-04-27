@@ -37,7 +37,7 @@ export default function Login() {
     }
 
     return (
-        <Layout title={"Login - Climbing Up"}>
+        <Layout title={"Login - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["up-login-card"]}>
                     <div className={styles["login-card"]}>
