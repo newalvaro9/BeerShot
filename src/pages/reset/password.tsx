@@ -132,32 +132,26 @@ export default function ResetEmail({ code }: { code: string | null }) {
                                         {error}
                                     </div>
                                 )}
+                                
+                                <>
+                                    <div className={styles["login-forms"]}>
 
-                                {sent ? (
-                                    <>
-                                        <h5>We have sent an email to {toAsterisk(emailRef!.current!.value)} with the instructions to recover your account</h5>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className={styles["login-forms"]}>
-
-                                            <div className={styles["form-group"]}>
-                                                <label className="label" htmlFor="email">
-                                                    New password
-                                                </label>
-                                                <input className={styles["email-input"]} type="password" name="password" ref={passwordRef} required />
-                                            </div>
-
-                                            <div className={styles["form-group"]}>
-                                                <label className="label" htmlFor="email">
-                                                    Repeat new password
-                                                </label>
-                                                <input className={styles["email-input"]} type="password" name="repeat_password" ref={repeatPasswordRef} required />
-                                            </div>
+                                        <div className={styles["form-group"]}>
+                                            <label className="label" htmlFor="email">
+                                                New password
+                                            </label>
+                                            <input className={styles["email-input"]} type="password" name="password" ref={passwordRef} required />
                                         </div>
-                                        <button type="button" onClick={handleChangePassword} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Change password</button>
-                                    </>
-                                )}
+
+                                        <div className={styles["form-group"]}>
+                                            <label className="label" htmlFor="email">
+                                                Repeat new password
+                                            </label>
+                                            <input className={styles["email-input"]} type="password" name="repeat_password" ref={repeatPasswordRef} required />
+                                        </div>
+                                    </div>
+                                    <button type="button" onClick={handleChangePassword} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Change password</button>
+                                </>
                             </>
                         ) : (
                             <>
