@@ -5,7 +5,6 @@
 
 - Landing page
 - OGP.ME
-- Change Passwor
 - Change Email
 
 ### Author
