@@ -6,7 +6,7 @@ import connect from '../../../lib/database/database';
 import users from '../../../lib/database/models/users';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') return res.redirect('/404');
+    if (req.method !== 'POST') return res.redirect('/');
 
     if (req.body) {
         const session = await getServerSession(req, res, authOptions);
