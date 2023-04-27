@@ -4,6 +4,7 @@ import users from '../../../../lib/database/models/users'
 import { compare } from 'bcrypt'
 import connect from '../../../../lib/database/database'
 import hasher from '../../../../utils/hasher'
+import validateEmail from '../../../../utils/validateEmail';
 
 export const authOptions = {
     providers: [
@@ -49,25 +50,27 @@ export const authOptions = {
                         password: string;
                     }
 
-                    await connect();
-                    const emailCheck = await users.findOne({ email: email });
+                    if (validateEmail(email)) {
+                        await connect();
+                        const emailCheck = await users.findOne({ email: email });
 
-                    if (!emailCheck) {
-                        const usernameCheck = await users.findOne({ username: username })
-                        if (!usernameCheck) {
-                            const user = await users.create({
-                                email: email,
-                                username: username,
-                                password: await hasher(password),
-                            });
-                            console.log("Nextauth register")
-                            console.log({ ...user.toObject(), userid: user.userid })
-                            return { ...user.toObject(), userid: user.userid };
+                        if (!emailCheck) {
+                            const usernameCheck = await users.findOne({ username: username })
+                            if (!usernameCheck) {
+                                const user = await users.create({
+                                    email: email,
+                                    username: username,
+                                    password: await hasher(password),
+                                });
+                                return { ...user.toObject(), userid: user.userid };
+                            } else {
+                                throw new Error("UsernamePicked");
+                            }
                         } else {
-                            throw new Error("UsernamePicked");
+                            throw new Error("EmailPicked");
                         }
                     } else {
-                        throw new Error("EmailPicked");
+                        throw new Error("Invalid")
                     }
                 }
                 else {

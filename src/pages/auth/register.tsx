@@ -5,6 +5,8 @@ import Layout from '@/components/layout';
 import styles from '../../styles/Login.module.css';
 import buttons from '../../styles/Buttons.module.css'
 
+import validateEmail from '../../../utils/validateEmail';
+
 export default function Register() {
 
     const emailRef = useRef<HTMLInputElement>(null)
@@ -19,34 +21,42 @@ export default function Register() {
 
     const handleSignIn = () => {
 
-        if (passwordRef!.current!.value === confirm_passwordRef!.current!.value) {
-            signIn('credentials', {
-                redirect: false,
-                email: emailRef!.current!.value,
-                username: usernameRef!.current!.value,
-                password: passwordRef!.current!.value,
-                type: "register",
-            }).then(({ error }: any) => {
-                if (!error || error.length === 0) {
-                    router.push('/');
-                }
-                else if (error === "EmailPicked") {
-                    setShowError(true);
-                    setError("El correo electrónico ya está en uso");
-                }
-                else if (error === "UsernamePicked") {
-                    setShowError(true);
-                    setError("El nombre de usuario ya está en uso");
-                }
-                else {
-                    console.log(error)
-                    setShowError(true);
-                    setError("Hubo un error al registrarte")
-                }
-            })
+        if (validateEmail(emailRef!.current!.value)) {
+            if (passwordRef!.current!.value === confirm_passwordRef!.current!.value) {
+                signIn('credentials', {
+                    redirect: false,
+                    email: emailRef!.current!.value,
+                    username: usernameRef!.current!.value,
+                    password: passwordRef!.current!.value,
+                    type: "register",
+                }).then(({ error }: any) => {
+                    if (!error || error.length === 0) {
+                        router.push('/');
+                    }
+                    else if (error === "EmailPicked") {
+                        setShowError(true);
+                        setError("El correo electrónico ya está en uso");
+                    }
+                    else if (error === "UsernamePicked") {
+                        setShowError(true);
+                        setError("El nombre de usuario ya está en uso");
+                    } else if (error === "Invalid") {
+                        setShowError(true);
+                        setError("Introduce un correo electrónico correcto");
+                    }
+                    else {
+                        console.log(error)
+                        setShowError(true);
+                        setError("Hubo un error al registrarte")
+                    }
+                })
+            } else {
+                setShowError(true)
+                setError("Las contraseñas no coinciden")
+            }
         } else {
-            setShowError(true)
-            setError("Las contraseñas no coinciden")
+            setShowError(true);
+            setError("Introduce un correo electrónico válido")
         }
     }
 
