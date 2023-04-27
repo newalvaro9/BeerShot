@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (req.body) {
         const session = await getServerSession(req, res, authOptions);
-        if (!session) return res.status(403).send("Unauthorized");
+        if (!session) return res.status(403).end();
 
         const { newBio } = req.body as {
             newBio: string;
@@ -24,11 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 { biography: newBio }
             );
         } catch (err) {
-            return res.status(500).send("Internal server error");
+            return res.status(500).end();
         }
 
-        res.status(200).send("OK");
+        res.status(200).end();
     } else {
-        res.status(500).send("Internal server error");
+        res.status(500).end();
     }
 }
