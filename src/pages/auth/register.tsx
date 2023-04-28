@@ -67,6 +67,14 @@ export default function Register() {
         }
     }
 
+    if (typeof window !== 'undefined') {
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                document.getElementById("register")?.click();
+            }
+        });
+    }
+
     return (
         <Layout title={"Register - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
@@ -107,7 +115,7 @@ export default function Register() {
                             </div>
                         </div>
 
-                        <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Register</button>
+                        <button id="register" type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Register</button>
                     </div>
                 </div>
             </form>

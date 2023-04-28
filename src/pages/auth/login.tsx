@@ -46,6 +46,14 @@ export default function Login() {
         })
     }
 
+    if (typeof window !== 'undefined') {
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                document.getElementById("login")?.click();
+            }
+        });
+    }
+
     return (
         <Layout title={"Iniciar sesión - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
@@ -72,7 +80,7 @@ export default function Login() {
                             </div>
                         </div>
 
-                        <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
+                        <button id="login" type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
                         <a className={styles['forgot']} href="/reset/password">Forgot your password?</a>
                     </div>
                 </div>

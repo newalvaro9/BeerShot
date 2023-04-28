@@ -89,6 +89,14 @@ export default function Upload() {
         inputElement && inputElement.click();
     }
 
+    if (typeof window !== 'undefined') {
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                document.getElementById("upload")?.click();
+            }
+        });
+    }
+
     return (
         <Layout title="Upload Images - BeerShoot">
             <h1 className={styles.title}>Upload to BeerShoot</h1>
@@ -112,7 +120,7 @@ export default function Upload() {
                             </div>
                         </div>
                     )}
-                    <button type="button" onClick={handleUpload} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Upload file</button>
+                    <button id="upload" type="button" onClick={handleUpload} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Upload file</button>
                 </div>
             </div>
 
