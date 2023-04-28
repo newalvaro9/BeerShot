@@ -109,28 +109,28 @@ export default function ResetEmail({ code }: { code: string | null }) {
 
     return (
         <Layout title={"Change password - BeerShoot"}>
-            <div className={styles["up-login-card"]}>
-                <div className={styles["login-card"]}>
-                    <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Account recover</h2>
+            <div className={styles["card"]}>
+                <div className={styles["card-body"]}>
+                    <h2 className={styles['title']}>Account recover</h2>
                     <Alert error={error} setError={setError} />
 
                     {
                         code ? (
                             <>
-                                <div className={styles["login-forms"]}>
+                                <div className={styles["forms"]}>
 
                                     <div className={styles["form-group"]}>
                                         <label className="label" htmlFor="email">
                                             New password
                                         </label>
-                                        <input className={styles["email-input"]} type="password" name="password" ref={passwordRef} required />
+                                        <input type="password" name="password" ref={passwordRef} required />
                                     </div>
 
                                     <div className={styles["form-group"]}>
                                         <label className="label" htmlFor="email">
                                             Repeat new password
                                         </label>
-                                        <input className={styles["email-input"]} type="password" name="repeat_password" ref={repeatPasswordRef} required />
+                                        <input type="password" name="repeat_password" ref={repeatPasswordRef} required />
                                     </div>
                                 </div>
                                 <button type="button" onClick={handleChangePassword} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Change password</button>
@@ -141,13 +141,13 @@ export default function ResetEmail({ code }: { code: string | null }) {
                                     <h3 style={{ textAlign: 'center' }}>We have sent an email to<br />{toAsterisk(emailRef!.current!.value)}<br />with the instructions to recover your account</h3>
                                 ) : (
                                     <>
-                                        <div className={styles["login-forms"]}>
+                                        <div className={styles["forms"]}>
 
                                             <div className={styles["form-group"]}>
                                                 <label className="label" htmlFor="email">
                                                     Account email
                                                 </label>
-                                                <input className={styles["email-input"]} type="text" name="email" ref={emailRef} required />
+                                                <input type="email" name="email" ref={emailRef} required />
                                             </div>
                                         </div>
                                         <button type="button" onClick={handleSendEmail} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Send email</button>

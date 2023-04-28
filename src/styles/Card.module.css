@@ -1,4 +1,4 @@
-.up-login-card {
+.card {
     width: 100%;
     height: 100%;
     display: flex;
@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.login-card {
+.card-body {
     border: #2a3b47 solid 2px;
     background-color: #1c2b36;
     border-radius: 20px;
@@ -17,7 +17,12 @@
     flex-direction: column;
 }
 
-.login-forms {
+.title {
+    text-align: center;
+    color: #eff3f5;
+}
+
+.forms {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -36,9 +41,9 @@
     margin-left: 4px
 }
 
-.help-login-card {
-    display: flex;
-    justify-content: space-around;
+.forgot {
+    align-self: 'center';
+    margin-top: 12;
 }
 
 .submit-input {

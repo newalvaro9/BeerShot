@@ -61,40 +61,40 @@ export default function Register() {
     return (
         <Layout title={"Register - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
-                <div className={styles["up-login-card"]}>
-                    <div className={styles["login-card"]}>
-                        <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Register</h2>
+                <div className={styles["card"]}>
+                    <div className={styles["card-body"]}>
+                        <h2 className={styles['title']}>Register</h2>
 
                         <Alert error={error} setError={setError} />
 
-                        <div className={styles["login-forms"]}>
+                        <div className={styles["forms"]}>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="username">
                                     Email
                                 </label>
-                                <input className={styles["email-input"]} type="text" name="email" ref={emailRef} required />
+                                <input type="email" name="email" ref={emailRef} required />
                             </div>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="username">
                                     Username
                                 </label>
-                                <input className={styles["username-input"]} type="text" name="username" ref={usernameRef} required />
+                                <input type="text" name="username" ref={usernameRef} required />
                             </div>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="password">
                                     Password
                                 </label>
-                                <input className={styles["password-input"]} type="password" name="password" ref={passwordRef} required />
+                                <input type="password" name="password" ref={passwordRef} required />
                             </div>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="username">
                                     Confirm password
                                 </label>
-                                <input className={styles["confirm_password-input"]} type="password" name="confirm_password" ref={confirm_passwordRef} required />
+                                <input type="password" name="confirm_password" ref={confirm_passwordRef} required />
                             </div>
                         </div>
 

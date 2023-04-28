@@ -39,31 +39,31 @@ export default function Login() {
     return (
         <Layout title={"Login - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
-                <div className={styles["up-login-card"]}>
-                    <div className={styles["login-card"]}>
-                        <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Log in to continue</h2>
+                <div className={styles["card"]}>
+                    <div className={styles["card-body"]}>
+                        <h2 className={styles['title']}>Log in to continue</h2>
 
                         <Alert error={error} setError={setError} />
 
-                        <div className={styles["login-forms"]}>
+                        <div className={styles["forms"]}>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="username">
                                     Username
                                 </label>
-                                <input className={styles["username-input"]} type="text" name="username" ref={usernameRef} required />
+                                <input type="text" name="username" ref={usernameRef} required />
                             </div>
 
                             <div className={styles["form-group"]}>
                                 <label className="label" htmlFor="password">
                                     Password
                                 </label>
-                                <input className={styles["password-input"]} type="password" name="password" ref={passwordRef} required />
+                                <input type="password" name="password" ref={passwordRef} required />
                             </div>
                         </div>
 
                         <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Login</button>
-                        <a style={{ alignSelf: 'center', marginTop: 12 }} href="/reset/password">¿Ha olvidado su contraseña?</a>
+                        <a className={styles['forgot']} href="/reset/password">¿Ha olvidado su contraseña?</a>
                     </div>
                 </div>
             </form>
