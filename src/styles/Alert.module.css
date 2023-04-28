@@ -1,11 +1,13 @@
 .alert {
-    padding: 20px;
+    padding: 17px;
+    border-radius: 10px;
     background-color: #CB473D;
     color: white;
-    margin-bottom: 15px;
-  }
-  
-  .closebtn {
+    margin-bottom: 10px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.closebtn {
     margin-left: 15px;
     color: white;
     font-weight: bold;
@@ -14,8 +16,18 @@
     line-height: 20px;
     cursor: pointer;
     transition: .3s;
-  }
-  
-  .closebtn:hover {
+}
+
+.closebtn:hover {
     color: black;
-  }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
