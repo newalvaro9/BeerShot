@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { signOut } from 'next-auth/react';
 
 import Layout from '@/components/layout';
+import Alert from '@/components/alert';
 
 import styles from '../../styles/Login.module.css';
 import buttons from '../../styles/Buttons.module.css'
@@ -19,7 +20,6 @@ export default function ResetEmail({ code }: { code: string | null }) {
     const passwordRef = useRef<HTMLInputElement>(null)
     const repeatPasswordRef = useRef<HTMLInputElement>(null)
 
-    const [showError, setShowError] = useState(false);
     const [error, setError] = useState<string>("")
 
     const [sent, setSent] = useState<boolean>(false);
@@ -49,19 +49,15 @@ export default function ResetEmail({ code }: { code: string | null }) {
                         setSent(true)
                         break;
                     case 400:
-                        setShowError(true)
                         setError("El correo electrónico no es válido.");
                         break;
                     case 404:
-                        setShowError(true)
                         setError("El correo electrónico no es válido.");
                         break;
                     case 500:
-                        setShowError(true)
                         setError("Error en el servidor. Intente de nuevo");
                         break;
                     default:
-                        setShowError(true)
                         setError("Ha ocurrido un error inesperado.");
                 }
             })
@@ -93,19 +89,15 @@ export default function ResetEmail({ code }: { code: string | null }) {
                         signOut({ callbackUrl: '/auth/login' });
                         break;
                     case 400:
-                        setShowError(true)
                         setError("Las contraseñas no coinciden.");
                         break;
                     case 404:
-                        setShowError(true)
                         setError("El correo electrónico no es válido.");
                         break;
                     case 500:
-                        setShowError(true)
                         setError("Error en el servidor. Intente de nuevo");
                         break;
                     default:
-                        setShowError(true)
                         setError("Ha ocurrido un error inesperado.");
                 }
             })
@@ -120,16 +112,11 @@ export default function ResetEmail({ code }: { code: string | null }) {
             <div className={styles["up-login-card"]}>
                 <div className={styles["login-card"]}>
                     <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Account recover</h2>
+                    <Alert error={error} setError={setError} />
+
                     {
                         code ? (
                             <>
-                                {error && (
-                                    <div className="alert" style={{ display: showError ? 'block' : 'none' }}>
-                                        <span className="closebtn" onClick={() => setShowError(prev => !prev)}>&times;</span>
-                                        {error}
-                                    </div>
-                                )}
-
                                 <div className={styles["login-forms"]}>
 
                                     <div className={styles["form-group"]}>
@@ -150,13 +137,6 @@ export default function ResetEmail({ code }: { code: string | null }) {
                             </>
                         ) : (
                             <>
-                                {error && (
-                                    <div className="alert" style={{ display: showError ? 'block' : 'none' }}>
-                                        <span className="closebtn" onClick={() => setShowError(prev => !prev)}>&times;</span>
-                                        {error}
-                                    </div>
-                                )}
-
                                 {sent ? (
                                     <h3 style={{ textAlign: 'center' }}>We have sent an email to<br />{toAsterisk(emailRef!.current!.value)}<br />with the instructions to recover your account</h3>
                                 ) : (

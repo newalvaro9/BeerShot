@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/router';
+
 import Layout from '@/components/layout';
+import Alert from '@/components/alert';
+
 import styles from '@/styles/Login.module.css';
 import buttons from "@/styles/Buttons.module.css"
 
@@ -10,7 +13,6 @@ export default function Login() {
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const [showError, setShowError] = useState(false);
     const [error, setError] = useState<string>("")
 
     const router = useRouter();
@@ -26,11 +28,9 @@ export default function Login() {
                 router.push('/');
             }
             else if (error === "CredencialesIncorrectas") {
-                setShowError(true)
                 setError("Usuario o contraseña incorrecto.");
             }
             else {
-                setShowError(true)
                 setError("Error en el servidor. Intente de nuevo");
             }
         })
@@ -43,14 +43,7 @@ export default function Login() {
                     <div className={styles["login-card"]}>
                         <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Log in to continue</h2>
 
-                        {error ? (
-                            <div className="alert" style={{ display: showError ? 'block' : 'none' }}>
-                                <span className="closebtn" onClick={() => setShowError(prev => !prev)}>&times;</span>
-                                {error}
-                            </div>
-                        ) : <></>
-                        }
-
+                        <Alert error={error} setError={setError} />
 
                         <div className={styles["login-forms"]}>
 

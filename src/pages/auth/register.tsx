@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react'
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/router';
+
 import Layout from '@/components/layout';
+import Alert from '@/components/alert';
+
 import styles from '../../styles/Login.module.css';
 import buttons from '../../styles/Buttons.module.css'
 
@@ -14,7 +17,6 @@ export default function Register() {
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirm_passwordRef = useRef<HTMLInputElement>(null)
 
-    const [showError, setShowError] = useState(false);
     const [error, setError] = useState<string>("")
 
     const router = useRouter();
@@ -34,28 +36,22 @@ export default function Register() {
                         router.push('/');
                     }
                     else if (error === "EmailPicked") {
-                        setShowError(true);
                         setError("El correo electrónico ya está en uso");
                     }
                     else if (error === "UsernamePicked") {
-                        setShowError(true);
                         setError("El nombre de usuario ya está en uso");
                     } else if (error === "Invalid") {
-                        setShowError(true);
                         setError("Introduce un correo electrónico correcto");
                     }
                     else {
                         console.log(error)
-                        setShowError(true);
                         setError("Hubo un error al registrarte")
                     }
                 })
             } else {
-                setShowError(true)
                 setError("Las contraseñas no coinciden")
             }
         } else {
-            setShowError(true);
             setError("Introduce un correo electrónico válido")
         }
     }
@@ -67,14 +63,7 @@ export default function Register() {
                     <div className={styles["login-card"]}>
                         <h2 style={{ "textAlign": "center", "color": "#eff3f5" }}>Register</h2>
 
-                        {error ? (
-                            <div className="alert" style={{ display: showError ? 'block' : 'none' }}>
-                                <span className="closebtn" onClick={() => setShowError(prev => !prev)}>&times;</span>
-                                {error}
-                            </div>
-                        ) : <></>
-                        }
-
+                        <Alert error={error} setError={setError} />
 
                         <div className={styles["login-forms"]}>
 
