@@ -28,12 +28,12 @@ export default function ResetEmail({ code }: { code: string | null }) {
         const email = emailRef!.current!.value.trim();
 
         if (!email) {
-            setError('Por favor, rellena todos los campos');
+            setError('Please, fill in all fields');
             return;
         }
 
         if (!validateEmail(email)) {
-            setError("El correo electrónco no es válido");
+            setError("Enter a valid email address");
             return;
         }
 
@@ -54,20 +54,20 @@ export default function ResetEmail({ code }: { code: string | null }) {
                         setSent(true)
                         break;
                     case 400:
-                        setError("El correo electrónico no es válido.");
+                        setError("Invalid email address");
                         break;
                     case 404:
-                        setError("El correo electrónico no es válido.");
+                        setError("Invalid email address.");
                         break;
                     case 500:
-                        setError("Error en el servidor. Intente de nuevo");
+                        setError("Server error, try again later");
                         break;
                     default:
-                        setError("Ha ocurrido un error inesperado.");
+                        setError("An unexpected error ocurred");
                 }
             })
             .catch(error => {
-                setError("Error al enviar la petición. Intente de nuevo")
+                setError("Error while sending the request, try again later")
             });
     }
 
@@ -78,7 +78,7 @@ export default function ResetEmail({ code }: { code: string | null }) {
 
 
         if (!password || !repeat_password) {
-            setError("Por favor, rellene todos los campos");
+            setError("Please, fill in all fields");
             return;
         }
 
@@ -102,23 +102,23 @@ export default function ResetEmail({ code }: { code: string | null }) {
                             signOut({ callbackUrl: '/auth/login' });
                             break;
                         case 400:
-                            setError("Las contraseñas no coinciden.");
+                            setError("Passwords do not match");
                             break;
                         case 404:
-                            setError("El correo electrónico no es válido.");
+                            setError("Invalid email address");
                             break;
                         case 500:
-                            setError("Error en el servidor. Intente de nuevo");
+                            setError("Server error, try again later");
                             break;
                         default:
-                            setError("Ha ocurrido un error inesperado.");
+                            setError("An unexpected error ocurred, try again later");
                     }
                 })
                 .catch(error => {
-                    setError("Error al enviar la petición. Intente de nuevo")
+                    setError("Error while sending the request, try again later")
                 });
         } else {
-            setError("Las contraseñas no coinciden.");
+            setError("Passwords do not match");
         }
     }
 

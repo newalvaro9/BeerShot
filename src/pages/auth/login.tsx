@@ -24,7 +24,7 @@ export default function Login() {
         const password = passwordRef!.current!.value;
 
         if (!username || !password) {
-            setError('Por favor, rellene todos los campos');
+            setError('Please, fill in all fields');
             return;
         }
 
@@ -38,16 +38,16 @@ export default function Login() {
                 router.push('/');
             }
             else if (error === "CredencialesIncorrectas") {
-                setError("Usuario o contraseña incorrecto.");
+                setError("Incorrect username or password");
             }
             else {
-                setError("Error en el servidor. Intente de nuevo");
+                setError("Server error, try again later");
             }
         })
     }
 
     return (
-        <Layout title={"Login - BeerShoot"}>
+        <Layout title={"Iniciar sesión - BeerShoot"}>
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["card"]}>
                     <div className={styles["card-body"]}>
@@ -72,8 +72,8 @@ export default function Login() {
                             </div>
                         </div>
 
-                        <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Login</button>
-                        <a className={styles['forgot']} href="/reset/password">¿Ha olvidado su contraseña?</a>
+                        <button type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
+                        <a className={styles['forgot']} href="/reset/password">Forgot your password?</a>
                     </div>
                 </div>
             </form>

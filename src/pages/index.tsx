@@ -11,15 +11,15 @@ export default function Home() {
       {
         session ? (
           <>
-            <h1>Has iniciado sesion</h1>
-            <button onClick={() => signOut()}>Cerrar sesión</button>
+            <h1>Logged in as {(session.user as any).username}</h1>
+            <button onClick={() => signOut()}>Log out</button>
           </>
 
         ) : (
           <>
-            <h1>No has iniciado sesión</h1>
-            <button onClick={() => signIn()}>Iniciar sesión</button>
-            <button onClick={() => router.push(`/auth/register?callbackUrl=${encodeURIComponent(window.location.href)}`)}>Registrarse</button>
+            <h1>Not logged in</h1>
+            <button onClick={() => signIn()}>Log in</button>
+            <button onClick={() => router.push(`/auth/register?callbackUrl=${encodeURIComponent(window.location.href)}`)}>Register</button>
           </>
         )
       }

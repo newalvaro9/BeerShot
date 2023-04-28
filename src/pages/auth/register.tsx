@@ -30,7 +30,7 @@ export default function Register() {
         const confirm_password = confirm_passwordRef!.current!.value;
 
         if (!email || !username || !password || !confirm_password) {
-            setError('Por favor, rellene todos los campos');
+            setError('Please, fill in all fields');
             return;
         }
 
@@ -47,23 +47,23 @@ export default function Register() {
                         router.push('/');
                     }
                     else if (error === "EmailPicked") {
-                        setError("El correo electrónico ya está en uso");
+                        setError("Email address is already in use");
                     }
                     else if (error === "UsernamePicked") {
-                        setError("El nombre de usuario ya está en uso");
+                        setError("Username is already in use");
                     } else if (error === "Invalid") {
-                        setError("Introduce un correo electrónico correcto");
+                        setError("Enter a valid email address");
                     }
                     else {
                         console.log(error)
-                        setError("Hubo un error al registrarte")
+                        setError("Server error, try again later")
                     }
                 })
             } else {
-                setError("Las contraseñas no coinciden")
+                setError("Passwords do not match")
             }
         } else {
-            setError("Introduce un correo electrónico válido")
+            setError("Enter a valid email address")
         }
     }
 
