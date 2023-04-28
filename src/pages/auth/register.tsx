@@ -23,11 +23,13 @@ export default function Register() {
 
     const handleSignIn = () => {
 
-        if (validateEmail(emailRef!.current!.value)) {
+        const email = emailRef!.current!.value.trim()
+
+        if (validateEmail(email)) {
             if (passwordRef!.current!.value === confirm_passwordRef!.current!.value) {
                 signIn('credentials', {
                     redirect: false,
-                    email: emailRef!.current!.value,
+                    email: email,
                     username: usernameRef!.current!.value,
                     password: passwordRef!.current!.value,
                     type: "register",
