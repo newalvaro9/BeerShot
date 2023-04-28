@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
+import type { GetServerSideProps } from 'next/types';
 import { useRouter } from 'next/router';
 
 import Layout from '@/components/layout';
@@ -23,15 +24,23 @@ export default function Register() {
 
     const handleSignIn = () => {
 
-        const email = emailRef!.current!.value.trim()
+        const email = emailRef!.current!.value.trim();
+        const username = usernameRef!.current!.value.trim();
+        const password = passwordRef!.current!.value;
+        const confirm_password = confirm_passwordRef!.current!.value;
+
+        if (!email || !username || !password || !confirm_password) {
+            setError('Por favor, rellene todos los campos');
+            return;
+        }
 
         if (validateEmail(email)) {
-            if (passwordRef!.current!.value === confirm_passwordRef!.current!.value) {
+            if (password === confirm_password) {
                 signIn('credentials', {
                     redirect: false,
                     email: email,
-                    username: usernameRef!.current!.value,
-                    password: passwordRef!.current!.value,
+                    username: username,
+                    password: password,
                     type: "register",
                 }).then(({ error }: any) => {
                     if (!error || error.length === 0) {

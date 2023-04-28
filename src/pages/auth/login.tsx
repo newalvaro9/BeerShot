@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useRouter } from 'next/router';
+import type { GetServerSideProps } from 'next/types';
 
 import Layout from '@/components/layout';
 import Alert from '@/components/alert';
@@ -18,10 +19,19 @@ export default function Login() {
     const router = useRouter();
 
     const handleSignIn = () => {
+
+        const username = usernameRef!.current!.value.trim();
+        const password = passwordRef!.current!.value;
+
+        if (!username || !password) {
+            setError('Por favor, rellene todos los campos');
+            return;
+        }
+
         signIn('credentials', {
             redirect: false,
-            username: usernameRef!.current!.value,
-            password: passwordRef!.current!.value,
+            username: username,
+            password: password,
             type: "login",
         }).then(({ error }: any) => {
             if (!error || error.length === 0) {

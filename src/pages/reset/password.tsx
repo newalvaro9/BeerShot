@@ -25,11 +25,16 @@ export default function ResetEmail({ code }: { code: string | null }) {
     const [sent, setSent] = useState<boolean>(false);
 
     const handleSendEmail = () => {
-        let email = emailRef!.current!.value;
-        email = email.trim();
+        const email = emailRef!.current!.value.trim();
+
+        if (!email) {
+            setError('Por favor, rellena todos los campos');
+            return;
+        }
 
         if (!validateEmail(email)) {
-            setError("El correo electrónco no es válido")
+            setError("El correo electrónco no es válido");
+            return;
         }
 
         const data = {
@@ -70,40 +75,51 @@ export default function ResetEmail({ code }: { code: string | null }) {
         const password = passwordRef!.current!.value;
         const repeat_password = repeatPasswordRef!.current!.value;
 
-        const data = {
-            code: code,
-            password: password,
-            repeat_password: repeat_password,
+
+
+        if (!password || !repeat_password) {
+            setError("Por favor, rellene todos los campos");
+            return;
         }
 
-        fetch('/api/reset/password', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
+        if (password === repeat_password) {
+            const data = {
+                code: code,
+                password: password,
+                repeat_password: repeat_password,
             }
-        })
-            .then(response => {
-                switch (response.status) {
-                    case 200:
-                        signOut({ callbackUrl: '/auth/login' });
-                        break;
-                    case 400:
-                        setError("Las contraseñas no coinciden.");
-                        break;
-                    case 404:
-                        setError("El correo electrónico no es válido.");
-                        break;
-                    case 500:
-                        setError("Error en el servidor. Intente de nuevo");
-                        break;
-                    default:
-                        setError("Ha ocurrido un error inesperado.");
+
+            fetch('/api/reset/password', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             })
-            .catch(error => {
-                setError("Error al enviar la petición. Intente de nuevo")
-            });
+                .then(response => {
+                    switch (response.status) {
+                        case 200:
+                            signOut({ callbackUrl: '/auth/login' });
+                            break;
+                        case 400:
+                            setError("Las contraseñas no coinciden.");
+                            break;
+                        case 404:
+                            setError("El correo electrónico no es válido.");
+                            break;
+                        case 500:
+                            setError("Error en el servidor. Intente de nuevo");
+                            break;
+                        default:
+                            setError("Ha ocurrido un error inesperado.");
+                    }
+                })
+                .catch(error => {
+                    setError("Error al enviar la petición. Intente de nuevo")
+                });
+        } else {
+            setError("Las contraseñas no coinciden.");
+        }
     }
 
 
