@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/layout';
 import Alert from '@/components/alert';
 
-import styles from '../../styles/Login.module.css';
+import styles from '../../styles/Card.module.css';
 import buttons from '../../styles/Buttons.module.css'
 
 import validateEmail from '../../../utils/validateEmail';
