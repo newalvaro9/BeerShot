@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import { signOut } from 'next-auth/react';
 
 import Layout from '@/components/layout';
 
@@ -12,7 +12,6 @@ import validateEmail from '../../../utils/validateEmail';
 
 import connect from '../../../lib/database/database';
 import users from '../../../lib/database/models/users';
-import { signOut } from 'next-auth/react';
 
 export default function ResetEmail({ code }: { code: string | null }) {
 
@@ -24,8 +23,6 @@ export default function ResetEmail({ code }: { code: string | null }) {
     const [error, setError] = useState<string>("")
 
     const [sent, setSent] = useState<boolean>(false);
-
-    const router = useRouter();
 
     const handleSendEmail = () => {
         let email = emailRef!.current!.value;
@@ -93,7 +90,7 @@ export default function ResetEmail({ code }: { code: string | null }) {
             .then(response => {
                 switch (response.status) {
                     case 200:
-                        router.push('/auth/login');
+                        signOut({ callbackUrl: '/auth/login' });
                         break;
                     case 400:
                         setShowError(true)
