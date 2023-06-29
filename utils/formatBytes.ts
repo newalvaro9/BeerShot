@@ -1,7 +1,7 @@
-const formatBytes: (sizeInBytes: number) => string = (sizeInBytes) => {
-    const KB = 1024;
-    const MB = KB * 1024;
+const KB = 1024;
+const MB = KB * 1024;
 
+const formatBytes: (sizeInBytes: number) => string = (sizeInBytes) => {
     if (sizeInBytes < KB) {
         return sizeInBytes + ' B';
     } else if (sizeInBytes < MB) {
