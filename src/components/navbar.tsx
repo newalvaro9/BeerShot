@@ -36,7 +36,7 @@ export default function Navbar() {
     return (
         <nav id='navbar' className={`${styles["navbar"]} ${styles["navbar-expand-lg"]}`}>
             <div className={`${styles["container-fluid"]}`}>
-                <Link href="/" className={styles["navbar-brand"]}>BeerShoot</Link>
+                <Link href="/" className={styles["navbar-brand"]}>BeerShot</Link>
                 <button type="button" className={styles["navbar-toggler"]} onClick={toggleHamburguer}>
                     <span className={styles["navbar-toggler-icon"]}></span>
                 </button>

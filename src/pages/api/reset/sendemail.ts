@@ -32,16 +32,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'beershootrestore@gmail.com',
+                user: 'beershotrestore@gmail.com',
                 pass: process.env.MAIL_SERVER_PASS
             }
         });
 
         // email info
         const mailOptions = {
-            from: 'beershootrestore@gmail.com',
+            from: 'beershotrestore@gmail.com',
             to: email,
-            subject: 'Change BeerShoot Password',
+            subject: 'Change BeerShot Password',
             html:
                 `
                 <h3>Someone has requested a password reset for the following account associated with your email: <strong>${user.username}</strong></h3>

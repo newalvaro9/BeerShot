@@ -18,8 +18,8 @@ type ImageProps = {
 
 export default function ImageRoute({ image }: { image: ImageProps }) {
     return (
-        <Layout title={`${image.title} - BeerShoot`}>
-            <h1 className={styles['title']}>BeerShoot Images</h1>
+        <Layout title={`${image.title} - BeerShot`}>
+            <h1 className={styles['title']}>BeerShot Images</h1>
             <h2 className={styles['img-title']}>{image.title}</h2>
 
             <div className={styles['box']}>

@@ -6,7 +6,7 @@ export default function Layout({ children, title }: { children: React.ReactNode,
     return (
         <>
             <Head>
-                <title>{title ? title : "BeerShoot"}</title>
+                <title>{title ? title : "BeerShot"}</title>
                 <meta name="description" content="Upload your images and get a custom link to share it" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />

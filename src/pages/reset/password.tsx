@@ -124,7 +124,7 @@ export default function ResetEmail({ code }: { code: string | null }) {
 
 
     return (
-        <Layout title={"Change password - BeerShoot"}>
+        <Layout title={"Change password - BeerShot"}>
             <div className={styles["card"]}>
                 <div className={styles["card-body"]}>
                     <h2 className={styles['title']}>Account recover</h2>

@@ -98,8 +98,8 @@ export default function Upload() {
     }
 
     return (
-        <Layout title="Upload Images - BeerShoot">
-            <h1 className={styles.title}>Upload to BeerShoot</h1>
+        <Layout title="Upload Images - BeerShot">
+            <h1 className={styles.title}>Upload to BeerShot</h1>
             <div className={styles['box-upload']}>
                 <div className={styles['upload-area']}>
                     <div id="drop-zone" className={styles['drop-zone']} onClick={handleClick}>

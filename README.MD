@@ -1,4 +1,4 @@
-# BeerShoot
+# BeerShot
 > A simple image uploader.
 
 ### Todo list

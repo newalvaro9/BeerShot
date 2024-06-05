@@ -55,7 +55,7 @@ export default function Login() {
     }
 
     return (
-        <Layout title={"Iniciar sesión - BeerShoot"}>
+        <Layout title={"Iniciar sesión - BeerShot"}>
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["card"]}>
                     <div className={styles["card-body"]}>
@@ -81,6 +81,7 @@ export default function Login() {
                         </div>
 
                         <button id="login" type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a className={styles['forgot']} href="/reset/password">Forgot your password?</a>
                     </div>
                 </div>
