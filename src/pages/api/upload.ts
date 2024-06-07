@@ -9,20 +9,21 @@ import generateLink from "../../../utils/generateLink";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.redirect("/upload");
 
-    if (req.body) {
-        const session = await getServerSession(req, res, authOptions);
-        if (!session) return res.status(403).end();
+    if (!req.body) return res.status(400).end();
 
-        const { image, title, size } = req.body as {
-            image: string;
-            title: string;
-            size: number;
-        };
+    const session = await getServerSession(req, res, authOptions);
+    if (!session) return res.status(403).end();
 
+    const { image, title, size } = req.body as {
+        image: string;
+        title: string;
+        size: number;
+    };
+
+    const generatedLink = await generateLink(images);
+
+    try {
         await connect();
-
-        const generatedLink = await generateLink(images);
-
         await images.create({
             link: generatedLink,
             title: title,
@@ -32,7 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             publisher: session.user.userid,
         });
 
-        res.status(200).json({ newUrl: generatedLink });
+        return res.status(200).json({ newUrl: generatedLink });
+    } catch (err) {
+        return res.status(500).end();
     }
 }
 

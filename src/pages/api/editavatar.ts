@@ -8,28 +8,25 @@ import users from "../../../lib/database/models/users";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") return res.redirect("/");
 
-    if (req.body) {
-        const session = await getServerSession(req, res, authOptions);
-        if (!session) return res.status(403).end();
+    if (!req.body) return res.status(400).end();
 
-        const { newAvatar } = req.body as {
-            newAvatar: string;
-        };
+    const session = await getServerSession(req, res, authOptions);
+    if (!session) return res.status(403).end();
 
+    const { newAvatar } = req.body as {
+        newAvatar: string;
+    };
+
+    try {
         await connect();
+        await users.findOneAndUpdate(
+            { userid: session.user.userid },
+            { avatar: newAvatar }
+        );
 
-        try {
-            await users.findOneAndUpdate(
-                { userid: session.user.userid },
-                { avatar: newAvatar }
-            );
-        } catch (err) {
-            return res.status(500).end();
-        }
-
-        res.status(200).end();
-    } else {
-        res.status(500).send("Internal server error");
+        return res.status(200).end();
+    } catch (err) {
+        return res.status(500).end();
     }
 }
 
