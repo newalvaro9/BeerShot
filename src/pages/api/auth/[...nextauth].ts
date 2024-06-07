@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import users from '../../../../lib/database/models/users'
 import { compare } from 'bcrypt'
@@ -6,20 +6,11 @@ import connect from '../../../../lib/database/database'
 import hasher from '../../../../utils/hasher'
 import validateEmail from '../../../../utils/validateEmail';
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         Credentials({
             name: 'Credentials',
-            credentials: {
-                username: {
-                    label: 'Username',
-                    type: 'text'
-                },
-                password: {
-                    label: 'Password',
-                    type: 'password'
-                }
-            },
+            credentials: {},
             async authorize(credentials: any) {
 
                 if (credentials.type === 'login') {
@@ -81,25 +72,24 @@ export const authOptions = {
         }),
     ],
     callbacks: {
+        // Gets called every time a session is called getServerSession(), useSession() etc.
+        // What we return will be the returned object. The "token" param is the information of the user setted at the jwt function
         session: async ({ session, token }: { session: any, token: any }) => {
-            session.id = token.id;
-            session.jwt = token.jwt;
-
             session.user.userid = token.userid;
             session.user.email = token.email
             session.user.username = token.username
 
             return Promise.resolve(session);
         },
+        // When creating a session the "user" parameter will contain the returned object from the "authorize" function
+        // So when its only a session check it wouldn't
         jwt: async ({ token, user }: { token: any, user: any }) => {
             if (user) {
-                token.id = user.id;
-                token.jwt = user.jwt;
-
                 token.userid = user.userid as number;
                 token.email = user.email
                 token.username = user.username
             }
+
             return Promise.resolve(token);
         },
     },
