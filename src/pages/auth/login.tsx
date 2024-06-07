@@ -46,6 +46,12 @@ export default function Login() {
         })
     }
 
+    const handleSignInDev = () => {
+        usernameRef.current!.value = "testaccount";
+        passwordRef.current!.value = "averysafepassword";
+        handleSignIn();
+    }
+
     if (typeof window !== 'undefined') {
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
@@ -81,6 +87,7 @@ export default function Login() {
                         </div>
 
                         <button id="login" type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
+                        <button id="login" type="button" onClick={handleSignInDev} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Dev Quick Login</button>
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a className={styles['forgot']} href="/reset/password">Forgot your password?</a>
                     </div>
