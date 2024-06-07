@@ -1,24 +1,24 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from "react";
 import { getSession, signIn } from "next-auth/react";
-import type { GetServerSideProps } from 'next/types';
-import { useRouter } from 'next/router';
+import type { GetServerSideProps } from "next/types";
+import { useRouter } from "next/router";
 
-import Layout from '@/components/layout';
-import Alert from '@/components/alert';
+import Layout from "@/components/layout";
+import Alert from "@/components/alert";
 
-import styles from '../../styles/Card.module.css';
-import buttons from '../../styles/Buttons.module.css'
+import styles from "../../styles/Card.module.css";
+import buttons from "../../styles/Buttons.module.css";
 
-import validateEmail from '../../../utils/validateEmail';
+import validateEmail from "../../../utils/validateEmail";
 
 export default function Register() {
 
-    const emailRef = useRef<HTMLInputElement>(null)
+    const emailRef = useRef<HTMLInputElement>(null);
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const confirm_passwordRef = useRef<HTMLInputElement>(null)
+    const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
-    const [error, setError] = useState<string>("")
+    const [error, setError] = useState<string>("");
 
     const router = useRouter();
 
@@ -27,16 +27,16 @@ export default function Register() {
         const email = emailRef!.current!.value.trim();
         const username = usernameRef!.current!.value.trim();
         const password = passwordRef!.current!.value;
-        const confirm_password = confirm_passwordRef!.current!.value;
+        const confirmPassword = confirmPasswordRef!.current!.value;
 
-        if (!email || !username || !password || !confirm_password) {
-            setError('Please, fill in all fields');
+        if (!email || !username || !password || !confirmPassword) {
+            setError("Please, fill in all fields");
             return;
         }
 
         if (validateEmail(email)) {
-            if (password === confirm_password) {
-                signIn('credentials', {
+            if (password === confirmPassword) {
+                signIn("credentials", {
                     redirect: false,
                     email: email,
                     username: username,
@@ -44,7 +44,7 @@ export default function Register() {
                     type: "register",
                 }).then(({ error }: any) => {
                     if (!error || error.length === 0) {
-                        router.push('/');
+                        router.push("/");
                     }
                     else if (error === "EmailPicked") {
                         setError("Email address is already in use");
@@ -55,21 +55,21 @@ export default function Register() {
                         setError("Enter a valid email address");
                     }
                     else {
-                        console.log(error)
-                        setError("Server error, try again later")
+                        console.log(error);
+                        setError("Server error, try again later");
                     }
-                })
+                });
             } else {
-                setError("Passwords do not match")
+                setError("Passwords do not match");
             }
         } else {
-            setError("Enter a valid email address")
+            setError("Enter a valid email address");
         }
-    }
+    };
 
-    if (typeof window !== 'undefined') {
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    if (typeof window !== "undefined") {
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
                 document.getElementById("register")?.click();
             }
         });
@@ -80,7 +80,7 @@ export default function Register() {
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["card"]}>
                     <div className={styles["card-body"]}>
-                        <h2 className={styles['title']}>Register</h2>
+                        <h2 className={styles["title"]}>Register</h2>
 
                         <Alert error={error} setError={setError} />
 
@@ -111,7 +111,7 @@ export default function Register() {
                                 <label className="label" htmlFor="username">
                                     Confirm password
                                 </label>
-                                <input type="password" name="confirm_password" ref={confirm_passwordRef} required />
+                                <input type="password" name="confirmPassword" ref={confirmPasswordRef} required />
                             </div>
                         </div>
 
@@ -120,7 +120,7 @@ export default function Register() {
                 </div>
             </form>
         </Layout>
-    )
+    );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -138,4 +138,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {},
     };
-}
+};

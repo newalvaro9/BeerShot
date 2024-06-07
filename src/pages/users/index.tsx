@@ -1,5 +1,5 @@
-import { GetServerSideProps } from "next"
-import { getSession } from "next-auth/react"
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
 
 export default function Index() {
     return <></>;
@@ -10,8 +10,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         redirect: {
-            destination: (session?.user as any)?.userid ? `/users/${(session?.user as any).userid}` : '/',
+            destination: (session?.user as any)?.userid ? `/users/${(session?.user as any).userid}` : "/",
             permanent: false,
         }
-    }
-}
+    };
+};

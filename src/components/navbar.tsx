@@ -1,13 +1,13 @@
-import { signOut, useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
-import styles from '@/styles/Navbar.module.css'
+import styles from "@/styles/Navbar.module.css";
 import Link from "next/link";
 
 export default function Navbar() {
     const { data: session } = useSession();
 
-    const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false)
-    const [showNavbarResponsive, setShowNavbarResponsive] = useState<boolean>(false)
+    const [showProfileMenu, setShowProfileMenu] = useState<boolean>(false);
+    const [showNavbarResponsive, setShowNavbarResponsive] = useState<boolean>(false);
 
     const dropdownRef = useRef<HTMLUListElement>(null);
 
@@ -18,20 +18,20 @@ export default function Navbar() {
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [dropdownRef]);
 
     const toggleHamburguer = () => {
-        setShowNavbarResponsive(prev => !prev)
-    }
+        setShowNavbarResponsive(prev => !prev);
+    };
 
     const toggleProfile = () => {
-        setShowProfileMenu(prev => !prev)
-    }
+        setShowProfileMenu(prev => !prev);
+    };
 
     return (
         <nav id='navbar' className={`${styles["navbar"]} ${styles["navbar-expand-lg"]}`}>
@@ -40,15 +40,15 @@ export default function Navbar() {
                 <button type="button" className={styles["navbar-toggler"]} onClick={toggleHamburguer}>
                     <span className={styles["navbar-toggler-icon"]}></span>
                 </button>
-                <div className={`${styles['collapse']} ${styles['navbar-collapse']} ${showNavbarResponsive && styles['show']}`} id="navbarCollapse">
-                    <div className={`${styles['navbar-nav']} ${styles['ms-auto']}`}>
+                <div className={`${styles["collapse"]} ${styles["navbar-collapse"]} ${showNavbarResponsive && styles["show"]}`} id="navbarCollapse">
+                    <div className={`${styles["navbar-nav"]} ${styles["ms-auto"]}`}>
                         <Link href="/" className={styles["nav-link"]}>Home</Link>
                         {session ? (
                             <>
                                 <Link href="/upload" className={styles["nav-link"]}>Upload</Link>
 
                                 <li className={styles["dropdown"]}>
-                                    <button className={`${styles['nav-link']} ${styles['dropdown-toggle']}`} onClick={toggleProfile}>
+                                    <button className={`${styles["nav-link"]} ${styles["dropdown-toggle"]}`} onClick={toggleProfile}>
                                         {(session.user as any).username}
                                     </button>
                                     {showProfileMenu && (
@@ -57,7 +57,7 @@ export default function Navbar() {
                                             <li>
                                                 <hr className={styles["dropdown-divider"]} />
                                             </li>
-                                            <li><button className={`${styles["dropdown-item"]} ${styles['logout']}`} onClick={() => signOut()}>Log out</button></li>
+                                            <li><button className={`${styles["dropdown-item"]} ${styles["logout"]}`} onClick={() => signOut()}>Log out</button></li>
                                         </ul>
                                     )}
                                 </li>
@@ -72,5 +72,5 @@ export default function Navbar() {
                 </div>
             </div>
         </nav >
-    )
+    );
 }

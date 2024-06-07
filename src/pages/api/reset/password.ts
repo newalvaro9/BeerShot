@@ -1,24 +1,24 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 
-import connect from '../../../../lib/database/database';
-import users from '../../../../lib/database/models/users';
+import connect from "../../../../lib/database/database";
+import users from "../../../../lib/database/models/users";
 
-import hasher from '../../../../utils/hasher';
+import hasher from "../../../../utils/hasher";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') return res.redirect('/');
+    if (req.method !== "POST") return res.redirect("/");
 
     if (req.body) {
 
-        const { code, password, repeat_password } = req.body as {
+        const { code, password, repeatPassword } = req.body as {
             code: string,
             password: string,
-            repeat_password: string,
-        }
+            repeatPassword: string,
+        };
 
         await connect();
 
-        if (!code || !password || !repeat_password || password !== repeat_password) return res.status(400).end();
+        if (!code || !password || !repeatPassword || password !== repeatPassword) return res.status(400).end();
 
         const hashedPass = await hasher(password);
 

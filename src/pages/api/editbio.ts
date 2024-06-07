@@ -1,12 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "./auth/[...nextauth]"
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
-import connect from '../../../lib/database/database';
-import users from '../../../lib/database/models/users';
+import connect from "../../../lib/database/database";
+import users from "../../../lib/database/models/users";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') return res.redirect('/');
+    if (req.method !== "POST") return res.redirect("/");
 
     if (req.body) {
         const session = await getServerSession(req, res, authOptions);
@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const { newBio } = req.body as {
             newBio: string;
-        }
+        };
 
         await connect();
 

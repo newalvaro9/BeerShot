@@ -8,6 +8,6 @@ const generateLink: (images: Model<Document<any, {}>>) => Promise<string> = asyn
     } while (await images.findOne({ link: randomString }));
 
     return randomString;
-}
+};
 
 export default generateLink;

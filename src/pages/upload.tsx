@@ -5,46 +5,49 @@ import Image from "next/image";
 import type { GetServerSidePropsContext } from "next";
 import type { ChangeEvent } from "react";
 import styles from "@/styles/Upload.module.css";
-import buttons from '@/styles/Buttons.module.css';
+import buttons from "@/styles/Buttons.module.css";
 import Layout from "@/components/layout";
 
 export default function Upload() {
 
     const [image, setImage] = useState<string | null>(null); // Image in base64
-    const [imageName, setImageName] = useState<string | null>(null)
-    const [imageSize, setImageSize] = useState<number>(0)
+    const [imageName, setImageName] = useState<string | null>(null);
+    const [imageSize, setImageSize] = useState<number>(0);
 
     const [progress, setProgress] = useState<number>(0);
     const [showBar, setShowBar] = useState<boolean>(false);
 
     const router = useRouter();
 
-    const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleFileSelect = (event: ChangeEvent<HTMLInputElement>): void => {
         const file = event.target.files![0];
+        if (!file) return;
 
-        if (!["image/jpeg", "image/jpg", "image/png"].includes(file.type)) return alert("You must upload a supported file type.")
-
-        if (file) {
-            setProgress(0);
-            setShowBar(true)
-            const reader = new FileReader();
-
-            reader.onprogress = (event: ProgressEvent<FileReader>) => {
-                if (event.lengthComputable) {
-                    const loaded = Math.round((event.loaded / event.total) * 100);
-                    setProgress(loaded)
-                }
-            };
-
-            reader.readAsDataURL(file);
-
-            reader.onload = () => {
-                setProgress(100);
-                setImage(reader.result as string);
-                setImageName(file.name);
-                setImageSize(file.size);
-            };
+        if (!["image/jpeg", "image/jpg", "image/png"].includes(file.type)) {
+            alert("You must upload a supported file type.");
+            return;
         }
+
+        setProgress(0);
+        setShowBar(true);
+        const reader = new FileReader();
+
+        reader.onprogress = (event: ProgressEvent<FileReader>) => {
+            if (event.lengthComputable) {
+                const loaded = Math.round((event.loaded / event.total) * 100);
+                setProgress(loaded);
+            }
+        };
+
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+            setProgress(100);
+            setImage(reader.result as string);
+            setImageName(file.name);
+            setImageSize(file.size);
+        };
+
     };
 
     const handleUpload = async () => {
@@ -53,45 +56,46 @@ export default function Upload() {
                 image: image,
                 title: imageName,
                 size: imageSize,
-            }
+            };
 
-            fetch('/api/upload', {
-                method: 'POST',
+            fetch("/api/upload", {
+                method: "POST",
                 body: JSON.stringify(data),
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 }
             })
                 .then(response => response.json())
                 .then(data => {
-                    router.push(`/images/${data.newUrl}`)
+                    router.push(`/images/${data.newUrl}`);
                 })
                 .catch(error => {
-                    alert("There was an error sending your image")
+                    alert("There was an error sending your image");
+                    console.log(error);
                 });
         }
     };
 
     useEffect(() => {
-        const uploadIcon = document.getElementById('upload-icon');
-        const textDrop = document.getElementById('text-drop');
-        const previewImage = document.getElementById('preview-image');
+        const uploadIcon = document.getElementById("upload-icon");
+        const textDrop = document.getElementById("text-drop");
+        const previewImage = document.getElementById("preview-image");
 
         if (image && uploadIcon && previewImage && textDrop) {
-            uploadIcon!.style.display = 'none';
-            textDrop!.style.display = 'none';
-            previewImage!.style.display = 'block';
+            uploadIcon!.style.display = "none";
+            textDrop!.style.display = "none";
+            previewImage!.style.display = "block";
         }
-    }, [image])
+    }, [image]);
 
     const handleClick = () => {
-        const inputElement = document.getElementById('file-input');
+        const inputElement = document.getElementById("file-input");
         inputElement && inputElement.click();
-    }
+    };
 
-    if (typeof window !== 'undefined') {
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    if (typeof window !== "undefined") {
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
                 document.getElementById("upload")?.click();
             }
         });
@@ -100,23 +104,23 @@ export default function Upload() {
     return (
         <Layout title="Upload Images - BeerShot">
             <h1 className={styles.title}>Upload to BeerShot</h1>
-            <div className={styles['box-upload']}>
-                <div className={styles['upload-area']}>
-                    <div id="drop-zone" className={styles['drop-zone']} onClick={handleClick}>
+            <div className={styles["box-upload"]}>
+                <div className={styles["upload-area"]}>
+                    <div id="drop-zone" className={styles["drop-zone"]} onClick={handleClick}>
                         <Image src="/file.svg" id="upload-icon" alt="Upload file" width={60} height={70} />
 
                         {image && (
-                            <Image src={image} alt="Preview Image" id="preview-image" className={styles['preview']} draggable="false" fill={true} />
+                            <Image src={image} alt="Preview Image" id="preview-image" className={styles["preview"]} draggable="false" fill={true} />
                         )}
 
-                        <p className={styles['text-drop']} id="text-drop">Drop your file here or click to browse</p>
+                        <p className={styles["text-drop"]} id="text-drop">Drop your file here or click to browse</p>
                         <input type="file" id="file-input" accept="image/*" className="hide" onChange={handleFileSelect} />
                     </div>
                     {showBar && (
-                        <div className={styles['loading-container']}>
-                            <span className={styles['progress-percentage']} id="counter">{progress}%</span>
+                        <div className={styles["loading-container"]}>
+                            <span className={styles["progress-percentage"]} id="counter">{progress}%</span>
                             <div className={styles["loading-bar-back"]}>
-                                <div className={styles["loading-bar-front"]} style={{ width: progress + '%' }}></div>
+                                <div className={styles["loading-bar-front"]} style={{ width: progress + "%" }}></div>
                             </div>
                         </div>
                     )}

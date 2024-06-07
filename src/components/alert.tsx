@@ -1,4 +1,4 @@
-import styles from '@/styles/Alert.module.css';
+import styles from "@/styles/Alert.module.css";
 
 type Props = {
     error: string;
@@ -9,11 +9,11 @@ export default function Alert({ error, setError }: Props) {
     return (
         <>
             {error && (
-                <div className={styles['alert']} >
-                    <span className={styles['closebtn']} onClick={() => setError("")}>&times;</span>
+                <div className={styles["alert"]} >
+                    <span className={styles["closebtn"]} onClick={() => setError("")}>&times;</span>
                     {error}
                 </div>
             )}
         </>
-    )
+    );
 }

@@ -1,20 +1,20 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from "react";
 import { getSession, signIn } from "next-auth/react";
-import { useRouter } from 'next/router';
-import type { GetServerSideProps } from 'next/types';
+import { useRouter } from "next/router";
+import type { GetServerSideProps } from "next/types";
 
-import Layout from '@/components/layout';
-import Alert from '@/components/alert';
+import Layout from "@/components/layout";
+import Alert from "@/components/alert";
 
-import styles from '@/styles/Card.module.css';
-import buttons from "@/styles/Buttons.module.css"
+import styles from "@/styles/Card.module.css";
+import buttons from "@/styles/Buttons.module.css";
 
 export default function Login() {
 
     const usernameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    const [error, setError] = useState<string>("")
+    const [error, setError] = useState<string>("");
 
     const router = useRouter();
 
@@ -24,18 +24,18 @@ export default function Login() {
         const password = passwordRef!.current!.value;
 
         if (!username || !password) {
-            setError('Please, fill in all fields');
+            setError("Please, fill in all fields");
             return;
         }
 
-        signIn('credentials', {
+        signIn("credentials", {
             redirect: false,
             username: username,
             password: password,
             type: "login",
         }).then(({ error }: any) => {
             if (!error || error.length === 0) {
-                router.push('/');
+                router.push("/");
             }
             else if (error === "CredencialesIncorrectas") {
                 setError("Incorrect username or password");
@@ -43,18 +43,18 @@ export default function Login() {
             else {
                 setError("Server error, try again later");
             }
-        })
-    }
+        });
+    };
 
     const handleSignInDev = () => {
         usernameRef.current!.value = "testaccount";
         passwordRef.current!.value = "averysafepassword";
         handleSignIn();
-    }
+    };
 
-    if (typeof window !== 'undefined') {
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    if (typeof window !== "undefined") {
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
                 document.getElementById("login")?.click();
             }
         });
@@ -65,7 +65,7 @@ export default function Login() {
             <form action="/api/auth/callback/credentials" method="POST">
                 <div className={styles["card"]}>
                     <div className={styles["card-body"]}>
-                        <h2 className={styles['title']}>Log in to continue</h2>
+                        <h2 className={styles["title"]}>Log in to continue</h2>
 
                         <Alert error={error} setError={setError} />
 
@@ -89,12 +89,12 @@ export default function Login() {
                         <button id="login" type="button" onClick={handleSignIn} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Log in</button>
                         <button id="login" type="button" onClick={handleSignInDev} className={`${styles["submit-input"]} ${buttons["button-3"]}`}>Dev Quick Login</button>
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                        <a className={styles['forgot']} href="/reset/password">Forgot your password?</a>
+                        <a className={styles["forgot"]} href="/reset/password">Forgot your password?</a>
                     </div>
                 </div>
             </form>
         </Layout>
-    )
+    );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -112,4 +112,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {},
     };
-}
+};

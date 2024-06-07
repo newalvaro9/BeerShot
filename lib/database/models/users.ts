@@ -10,12 +10,12 @@ const Users = new mongoose.Schema({
     avatar: { type: Buffer },
 });
 
-Users.pre('save', async function (next) {
+Users.pre("save", async function (next) {
     if (this.isNew) {
-        const count = await mongoose.model('Users').countDocuments();
+        const count = await mongoose.model("Users").countDocuments();
         this.userid = count + 1;
     }
     next();
 });
 
-export default mongoose.models.Users || mongoose.model('Users', Users)
+export default mongoose.models.Users || mongoose.model("Users", Users);

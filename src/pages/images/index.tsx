@@ -9,9 +9,9 @@ export default function Index({ newX }: { newX: Array<string> }) {
 
     return (
         <>
-            {newX.map((x: string) => <h3 style={{ cursor: 'pointer' }} key={x} onClick={() => router.push(`/images/${x}`)}>{x}</h3>)}
+            {newX.map((x: string) => <h3 style={{ cursor: "pointer" }} key={x} onClick={() => router.push(`/images/${x}`)}>{x}</h3>)}
         </>
-    )
+    );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -20,12 +20,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const newX: Array<string> = [];
 
     queriedimages.forEach(x => {
-        newX.push(x.link)
+        newX.push(x.link);
     });
 
     return {
         props: {
             newX
         }
-    }
-}
+    };
+};

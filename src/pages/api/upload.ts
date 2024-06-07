@@ -1,23 +1,23 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "./auth/[...nextauth]"
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 
-import connect from '../../../lib/database/database';
-import images from '../../../lib/database/models/images';
-import generateLink from '../../../utils/generateLink'
+import connect from "../../../lib/database/database";
+import images from "../../../lib/database/models/images";
+import generateLink from "../../../utils/generateLink";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') return res.redirect('/upload');
+    if (req.method !== "POST") return res.redirect("/upload");
 
     if (req.body) {
         const session = await getServerSession(req, res, authOptions);
-        if(!session) return res.status(403).end();
+        if (!session) return res.status(403).end();
 
         const { image, title, size } = req.body as {
             image: string;
             title: string;
             size: number;
-        }
+        };
 
         await connect();
 
@@ -29,15 +29,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             image: image,
             size: size,
             date: Date.now(),
-            publisher: session?.user?.userid,
+            publisher: session.user.userid,
         });
 
-        res.status(200).json({ newUrl: generatedLink })
+        res.status(200).json({ newUrl: generatedLink });
     }
 }
 
 export const config = {
     api: {
-        responseLimit: '4mb',
+        responseLimit: "4mb",
     },
-}
+};

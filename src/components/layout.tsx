@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Navbar from './navbar'
+import Head from "next/head";
+import Navbar from "./navbar";
 
 //Main page /...
 export default function Layout({ children, title }: { children: React.ReactNode, title?: string }) {
@@ -17,5 +17,5 @@ export default function Layout({ children, title }: { children: React.ReactNode,
                 {children}
             </div>
         </>
-    )
+    );
 }
